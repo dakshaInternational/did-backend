@@ -13,20 +13,24 @@ class Query {
    return p;
   }
 
-  createCustomerTable(tableName, unique =''){
+  createStudentTable(tableName, unique =''){
     let p = new Promise((resolve, reject)=>{
       this.db.run(`CREATE TABLE IF NOT EXISTS ${tableName}(
          id INTEGER PRIMARY KEY AUTOINCREMENT,
-         name           TEXT    NOT NULL,
-         pageNo         TEXT     NOT NULL ${unique},
-         village        CHAR(50) NOT NULL,
-         mobile         INT NOT NULL ${unique},
-         father         TEXT NOT NULL,
-         rate           INT    NOT NULL,
-         guarantor      TEXT,
-         date           TEXT,
-         remarks        CHAR(80),
-         salutation     TEXT    NOT NULL )`
+         first_name   TEXT   NOT NULL,
+         last_name    TEXT   NOT NULL,
+         father_name  TEXT   NOT NULL,
+         mother_name  TEXT   NOT NULL,
+         class        TEXT   NOT NULL,
+         gender       TEXT   NOT NULL,
+         dob          TEXT   NOT NULL,
+         address      TEXT   NOT NULL,
+         contact_number      INT NOT NULL,
+         email        TEXT,
+         status       INT,
+         image BLOB NOT NULL,
+         enrollment_number TEXT NOT NULL,
+         roll_number TEXT NOT NULL )`
          , [], (err, data)=>{
          if(err) reject(err);
          resolve(data);
@@ -35,20 +39,18 @@ class Query {
      return p;
   }
 
-  createTransactionTable(tableName,data){
+  createReceiptTable(tableName,data){
     let p = new Promise((resolve, reject)=>{
       this.db.run(`CREATE TABLE IF NOT EXISTS ${tableName}(
          id INTEGER PRIMARY KEY AUTOINCREMENT,
-         amount         INT    NOT NULL,
-         date           TEXT   NOT NULL,
-         promiseDate    TEXT           ,
-         type           TEXT   NOT NULL,
-         rate           INT    NOT NULL,
-         customerId     INTEGER NOT NULL,
-         name           TEXT    NOT NULL,
-         village        TEXT    NOT NULL,
-         remarks        CHAR(80),
-         ${data})`
+         student_id     INT  NOT NULL,
+         class_id       INT  NOT NULL,
+         admission_fee  INT,
+         exam_fee       INT,
+         tution_fee     INT,
+         other_fee      INT,
+         date           TEXT NOT NULL
+         )`
          , [], (err, data)=>{
          if(err) reject(err);
          resolve(data);
@@ -82,7 +84,7 @@ class Query {
      return p;
   }
 
-  createVillageTable(tableName){
+  createSubjectTable(tableName){
     let p = new Promise((resolve, reject)=>{
     this.db.run(`CREATE TABLE IF NOT EXISTS ${tableName}(
        id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -95,6 +97,124 @@ class Query {
    return p;
   }
 
+  createClassTable(tableName){
+    let p = new Promise((resolve, reject)=>{
+    this.db.run(`CREATE TABLE IF NOT EXISTS ${tableName}(
+       id INTEGER PRIMARY KEY AUTOINCREMENT,
+       name TEXT NOT NULL UNIQUE)`
+       , [], (err, data)=>{
+       if(err) reject(err);
+       resolve(data);
+     });
+   });
+   return p;
+  }
+
+  createScorePanelTable(tableName){
+    let p = new Promise((resolve, reject)=>{
+    this.db.run(`CREATE TABLE IF NOT EXISTS ${tableName}(
+       id INTEGER PRIMARY KEY AUTOINCREMENT,
+       exam_id INTEGER    NOT NULL,
+       subject_id INTEGER NOT NULL,
+       student_id INTEGER NOT NULL,
+       marks INTEGER)`
+       , [], (err, data)=>{
+       if(err) reject(err);
+       resolve(data);
+     });
+   });
+   return p;
+  } 
+
+  createExamTable(tableName){
+    let p = new Promise((resolve, reject)=>{
+    this.db.run(`CREATE TABLE IF NOT EXISTS ${tableName}(
+       id INTEGER PRIMARY KEY AUTOINCREMENT,
+       name TEXT NOT NULL UNIQUE,
+       year INT NOT NULL)`
+       , [], (err, data)=>{
+       if(err) reject(err);
+       resolve(data);
+     });
+   });
+   return p;
+  }
+  
+createTimeTableTable(tableName){
+    let p = new Promise((resolve, reject)=>{
+    this.db.run(`CREATE TABLE IF NOT EXISTS ${tableName}(
+       id INTEGER PRIMARY KEY AUTOINCREMENT,
+       class_id INTEGER      NOT NULL,
+       period_number INTEGER NOT NULL,
+       subject_id INTEGER    NOT NULL,
+       start_time TEXT       NOT NULL,
+       end_time TEXT         NOT NULL
+       )`
+       , [], (err, data)=>{
+       if(err) reject(err);
+       resolve(data);
+     });
+   });
+   return p;
+  }
+
+  createEmployeeTable(tableName){
+    let p = new Promise((resolve, reject)=>{
+    this.db.run(`CREATE TABLE IF NOT EXISTS ${tableName}(
+       id INTEGER PRIMARY KEY AUTOINCREMENT,
+       name TEXT        NOT NULL,
+       address TEXT     NOT NULL,
+       designation TEXT NOT NULL,
+       salary INTEGER   NOT NULL,
+       image BLOB       NOT NULL,
+       mobile INTEGER   NOT NULL,
+       email TEXT,
+       doj TEXT,
+       work_specification TEXT,
+       experience INTEGER,
+       dob TEXT NOT NULL,
+       qualifiction TEXT,
+       department_id INTEGER NOT NULL
+       )`
+       , [], (err, data)=>{
+       if(err) reject(err);
+       resolve(data);
+     });
+   });
+   return p;
+  }
+
+  createLibraryTable(tableName){
+    let p = new Promise((resolve, reject)=>{
+    this.db.run(`CREATE TABLE IF NOT EXISTS ${tableName}(
+       id INTEGER PRIMARY KEY AUTOINCREMENT,
+       book_id INTEGER    NOT NULL,
+       date_of_issue TEXT NOT NULL,
+       issue_by INTEGER   NOT NULL,
+       issue_to INTEGER   NOT NULL
+       )`
+       , [], (err, data)=>{
+       if(err) reject(err);
+       resolve(data);
+     });
+   });
+   return p;
+  }
+
+  createDepartmentTable(tableName){
+    let p = new Promise((resolve, reject)=>{
+    this.db.run(`CREATE TABLE IF NOT EXISTS ${tableName}(
+       id INTEGER PRIMARY KEY AUTOINCREMENT,
+       name TEXT NOT NULL,
+       department_head INTEGER NOT NULL
+       )`
+       , [], (err, data)=>{
+       if(err) reject(err);
+       resolve(data);
+     });
+   });
+   return p;
+  }
   createTrigger(triggerName,action){
     let p = new Promise((resolve, reject)=>{
     this.db.run(`CREATE TRIGGER IF NOT EXISTS ${triggerName} AFTER ${action} ON balances FOR EACH ROW
