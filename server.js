@@ -2,7 +2,6 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const cors = require('cors')
 const config = require('./config')
-const contacts = require('./contacts')
 //let q;
 //let query = new Query();
 const dbInit = require('./db')
