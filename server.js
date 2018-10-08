@@ -28,7 +28,6 @@ app.get('/', (req, res) => {
 })
 
 app.post('/sql', bodyParser.json(), (req, res) => {
-  console.log(req.body);
   let {fn, params} = req.body;
   q[fn](...params)
   .then((data)=>{
