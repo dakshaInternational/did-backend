@@ -28,9 +28,9 @@ class Query {
          contact_number      INT NOT NULL,
          email        TEXT,
          status       INT,
-         image BLOB NOT NULL,
-         enrollment_number TEXT NOT NULL,
-         roll_number TEXT NOT NULL )`
+         image BLOB ,
+         enrollment_number TEXT,
+         roll_number TEXT  )`
          , [], (err, data)=>{
          if(err) reject(err);
          resolve(data);
