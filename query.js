@@ -25,12 +25,12 @@ class Query {
          gender       TEXT   NOT NULL,
          dob          TEXT   NOT NULL,
          address      TEXT   NOT NULL,
-         contact_number      INT NOT NULL,
+         contact_number      INTEGER NOT NULL,
          email        TEXT,
-         status       INT,
+         status       INTEGER,
          image BLOB ,
          enrollment_number TEXT,
-         roll_number TEXT  )`
+         roll_number INTEGER NOT NULL )`
          , [], (err, data)=>{
          if(err) reject(err);
          resolve(data);
@@ -45,37 +45,12 @@ class Query {
          id INTEGER PRIMARY KEY AUTOINCREMENT,
          student_id     INT  NOT NULL,
          class_id       INT  NOT NULL,
-         admission_fee  INT,
-         exam_fee       INT,
-         tution_fee     INT,
-         other_fee      INT,
+         admission_fee  INTEGER,
+         exam_fee       INTEGER,
+         tution_fee     INTEGER,
+         other_fee      INTEGER,
          date           TEXT NOT NULL
          )`
-         , [], (err, data)=>{
-         if(err) reject(err);
-         resolve(data);
-       });
-     });
-     return p;
-  }
-  createBalanceTable(tableName,column = ""){
-    let p = new Promise((resolve, reject)=>{
-      this.db.run(`CREATE TABLE IF NOT EXISTS ${tableName}(
-         id INTEGER PRIMARY KEY AUTOINCREMENT,
-         amount         INT    NOT NULL,
-         date           TEXT   NOT NULL,
-         calcTill       TEXT   NOT NULL,
-         calcOn       TEXT   NOT NULL,
-         dueFrom       TEXT   NOT NULL,
-         nextDueDate       TEXT   NOT NULL,
-         customerId     INTEGER NOT NULL,
-         type           TEXT   NOT NULL,
-         p           INT    NOT NULL,
-         si           INT    NOT NULL,
-         rate           INT    NOT NULL,
-         total           INT    NOT NULL,
-         remarks        CHAR(80)
-         ${column})`
          , [], (err, data)=>{
          if(err) reject(err);
          resolve(data);
@@ -131,7 +106,7 @@ class Query {
     this.db.run(`CREATE TABLE IF NOT EXISTS ${tableName}(
        id INTEGER PRIMARY KEY AUTOINCREMENT,
        name TEXT NOT NULL UNIQUE,
-       year INT NOT NULL)`
+       year INTEGER NOT NULL)`
        , [], (err, data)=>{
        if(err) reject(err);
        resolve(data);
@@ -214,6 +189,17 @@ createTimeTableTable(tableName){
      });
    });
    return p;
+  }
+
+  selectMaxRollNumber(tableName, key, value){
+    let p = new Promise( (resolve, reject)=>{
+      let sql = `select (max(roll_number)+1) as roll_number from ${tableName} where ${key} = ${value}`
+      this.db.all(sql, (err, data)=>{
+        if(err) reject(err);
+        resolve(data);
+      });
+    });
+    return p;
   }
   createTrigger(triggerName,action){
     let p = new Promise((resolve, reject)=>{
