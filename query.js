@@ -201,6 +201,29 @@ createTimeTableTable(tableName){
     });
     return p;
   }
+
+  deleteRowById(tableName, id){
+    let p = new Promise( (resolve, reject)=>{
+      let sql = `DELETE FROM ${tableName} WHERE ID = ${id}`
+      this.db.run(sql, [], (err, data)=>{
+        if(err) reject(err);
+        resolve(data);
+      });
+    });
+    return p;
+  }
+ 
+ selectAllById(tableName, key, value){
+    let p = new Promise( (resolve, reject)=>{
+      let sql = `SELECT * FROM ${tableName} WHERE ${key} = '${value}' `
+      this.db.all(sql, (err, data)=>{
+        if(err) reject(err);
+        resolve(data);
+      });
+    });
+    return p;
+  }
+
   createTrigger(triggerName,action){
     let p = new Promise((resolve, reject)=>{
     this.db.run(`CREATE TRIGGER IF NOT EXISTS ${triggerName} AFTER ${action} ON balances FOR EACH ROW
@@ -256,16 +279,7 @@ createTimeTableTable(tableName){
     return p;
   }
 
-  deleteRowById(tableName, id){
-    let p = new Promise( (resolve, reject)=>{
-      let sql = `DELETE FROM ${tableName} WHERE ID = ${id}`
-      this.db.run(sql, [], (err, data)=>{
-        if(err) reject(err);
-        resolve(data);
-      });
-    });
-    return p;
-  }
+  
 
   deleteTableByName(tableName){
     let p = new Promise( (resolve, reject)=>{
@@ -297,7 +311,7 @@ createTimeTableTable(tableName){
     return p;
   }
 
-  selectAllById(tableName, key, value){
+  /*selectAllById(tableName, key, value){
     let p = new Promise( (resolve, reject)=>{
       let sql = `SELECT * FROM ${tableName} WHERE ${key} = '${value}' order by date(date)`
       this.db.all(sql, (err, data)=>{
@@ -306,7 +320,7 @@ createTimeTableTable(tableName){
       });
     });
     return p;
-  }
+  }*/
   selectAllByIdActive(tableName, key, value,conditionOn,value2){
     let p = new Promise( (resolve, reject)=>{
       let sql = `SELECT * FROM ${tableName} WHERE ${key} = '${value}' AND ${conditionOn} = '${value2}' order by date(date)`
