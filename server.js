@@ -24,7 +24,7 @@ app.use((req, res, next) => {
 })
 
 app.get('/', (req, res) => {
-    res.send({status: 200, data:'it works'})  
+    res.send({status: 200, data:'it works'})
 })
 
 app.post('/sql', bodyParser.json(), (req, res) => {
@@ -39,6 +39,6 @@ app.post('/sql', bodyParser.json(), (req, res) => {
 dbInit()
 .then(()=>{
   app.listen(config.port, () => {
-    console.log('Server listening on port %s, Ctrl+C to stop', config.port)
+    console.log('Server listening on port %s, Press Ctrl+C to stop', config.port)
   })
 })
