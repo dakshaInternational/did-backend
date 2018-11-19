@@ -25,10 +25,11 @@ let dbInit = ()=>{
     q.createEmployeeTable('employees'),
     q.createLibraryTable('library'),
     q.createDepartmentTable('department'),
+    q.createBooksTable('books')
     q.createLoginTable('login')
   ])
   .then((data)=>{
-    return Promise.all([ q.createTrigger('onInsert','INSERT'), q.createTrigger('onUpdate','UPDATE')])
+    return Promise.all([])
   })
   .then((data)=>{
     console.log('anp db confiigured');
@@ -36,7 +37,7 @@ let dbInit = ()=>{
   .catch((err)=>{
     console.error('anp an error occured while creating table', err);
   })
-  
+
 };
 
 module.exports = dbInit;

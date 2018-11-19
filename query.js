@@ -99,7 +99,7 @@ class Query {
      });
    });
    return p;
-  } 
+  }
 
   createExamTable(tableName){
     let p = new Promise((resolve, reject)=>{
@@ -114,7 +114,7 @@ class Query {
    });
    return p;
   }
-  
+
 createTimeTableTable(tableName){
     let p = new Promise((resolve, reject)=>{
     this.db.run(`CREATE TABLE IF NOT EXISTS ${tableName}(
@@ -176,6 +176,23 @@ createTimeTableTable(tableName){
    return p;
   }
 
+  createBooksTable(tableName){
+    let p = new Promise((resolve, reject)=>{
+    this.db.run(`CREATE TABLE IF NOT EXISTS ${tableName}(
+       id INTEGER PRIMARY KEY AUTOINCREMENT,
+       book_title TEXT    NOT NULL,
+       author_name TEXT NOT NULL,
+       publication TEXT  NOT NULL,
+       course_book TEXT   NOT NULL
+       )`
+       , [], (err, data)=>{
+       if(err) reject(err);
+       resolve(data);
+     });
+   });
+   return p;
+  }
+
   createDepartmentTable(tableName){
     let p = new Promise((resolve, reject)=>{
     this.db.run(`CREATE TABLE IF NOT EXISTS ${tableName}(
@@ -228,7 +245,7 @@ createTimeTableTable(tableName){
     });
     return p;
   }
- 
+
  selectAllById(tableName, key, value){
     let p = new Promise( (resolve, reject)=>{
       let sql = `SELECT * FROM ${tableName} WHERE ${key} = '${value}' `
@@ -284,8 +301,8 @@ createTimeTableTable(tableName){
     //this.db.run(`INSERT INTO CUSTOMER (NAME, PAGENO, village, MOBILE, FATHER, GUARANTOR, DATE, REMARKS) VALUES ('anop', 2, 'bang', 9738275930, 'prahlad', 'arun', '02-10-1991', 'demo')`);
     let p = new Promise((resolve, reject)=>{
       let columns = keys.map((key) => `${key}`).join(',');
-      values = values.map((value) => `'${value}'`).join(',');
-      let sql = `INSERT INTO ${tableName} (${columns}) VALUES (${values})`;
+      let value = values.map((value) => `'${value}'`).join(',');
+      let sql = `INSERT INTO ${tableName} (${columns}) VALUES (${value})`;
       this.db.run(sql, [], (err, data)=>{
         if(err) reject(err);
         resolve(data);
@@ -306,7 +323,7 @@ createTimeTableTable(tableName){
     return p;
   }
 
-  
+
 
   deleteTableByName(tableName){
     let p = new Promise( (resolve, reject)=>{
