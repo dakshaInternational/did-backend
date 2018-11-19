@@ -24,7 +24,8 @@ let dbInit = ()=>{
     q.createTimeTableTable('time_table'),
     q.createEmployeeTable('employees'),
     q.createLibraryTable('library'),
-    q.createDepartmentTable('department')
+    q.createDepartmentTable('department'),
+    q.createLoginTable('login')
   ])
   .then((data)=>{
     return Promise.all([ q.createTrigger('onInsert','INSERT'), q.createTrigger('onUpdate','UPDATE')])

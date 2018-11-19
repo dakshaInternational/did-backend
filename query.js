@@ -191,6 +191,22 @@ createTimeTableTable(tableName){
    return p;
   }
 
+  createLoginTable(tableName){
+    let p = new Promise((resolve, reject)=>{
+    this.db.run(`CREATE TABLE IF NOT EXISTS ${tableName}(
+       id INTEGER PRIMARY KEY AUTOINCREMENT,
+       user_email TEXT NOT NULL,
+       password TEXT NOT NULL,
+       is_admin INTEGER NOT NULL
+       )`
+       , [], (err, data)=>{
+       if(err) reject(err);
+       resolve(data);
+     });
+   });
+   return p;
+  }
+
   selectMaxRollNumber(tableName, key, value){
     let p = new Promise( (resolve, reject)=>{
       let sql = `select (max(roll_number)+1) as roll_number from ${tableName} where ${key} = ${value}`
@@ -217,6 +233,17 @@ createTimeTableTable(tableName){
     let p = new Promise( (resolve, reject)=>{
       let sql = `SELECT * FROM ${tableName} WHERE ${key} = '${value}' `
       this.db.all(sql, (err, data)=>{
+        if(err) reject(err);
+        resolve(data);
+      });
+    });
+    return p;
+  }
+
+  selectLoginInfo(tableName, value1, value2){
+    let p = new Promise((resolve, reject)=>{
+      let sql = `SELECT * FROM ${tableName} WHERE user_email = '${value1}' AND password = '${value2}' `
+      this.db.all(sql,(err,data)=>{
         if(err) reject(err);
         resolve(data);
       });
