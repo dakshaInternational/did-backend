@@ -25,8 +25,9 @@ let dbInit = ()=>{
     q.createEmployeeTable('employees'),
     q.createLibraryTable('library'),
     q.createDepartmentTable('department'),
-    q.createBooksTable('books')
-    q.createLoginTable('login')
+    q.createBooksTable('books'),
+    q.createLoginTable('login'),
+    q.createAttendanceTable('attendance')
   ])
   .then((data)=>{
     return Promise.all([])

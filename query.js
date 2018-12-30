@@ -208,7 +208,8 @@ createTimeTableTable(tableName){
    return p;
   }
 
-  createLoginTable(tableName){
+ 
+createLoginTable(tableName){
     let p = new Promise((resolve, reject)=>{
     this.db.run(`CREATE TABLE IF NOT EXISTS ${tableName}(
        id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -222,6 +223,23 @@ createTimeTableTable(tableName){
      });
    });
    return p;
+  }
+
+  createAttendanceTable(tableName){
+      let p = new Promise((resolve, reject)=>{
+        this.db.run(`CREATE TABLE IF NOT EXISTS ${tableName}(
+          id INTEGER PRIMARY KEY AUTOINCREMENT,
+          date TEXT   NOT NULL,
+          class TEXT NOT NULL,
+          roll_number INTEGER NOT NULL,
+          action TEXT NOT NULL
+          )`
+          , [], (err, data)=>{
+            if(err) reject(err);
+            resolve(data);
+          });
+      });
+      return p;
   }
 
   selectMaxRollNumber(tableName, key, value){
@@ -261,6 +279,17 @@ createTimeTableTable(tableName){
     let p = new Promise((resolve, reject)=>{
       let sql = `SELECT * FROM ${tableName} WHERE user_email = '${value1}' AND password = '${value2}' `
       this.db.all(sql,(err,data)=>{
+        if(err) reject(err);
+        resolve(data);
+      });
+    });
+    return p;
+  }
+
+  deleteRowAttendance(tableName, value1,value2,value3){
+    let p = new Promise( (resolve, reject)=>{
+      let sql = `DELETE FROM ${tableName} WHERE roll_number = '${value1}' AND date = '${value2}' AND class = '${value3}' `
+      this.db.run(sql, [], (err, data)=>{
         if(err) reject(err);
         resolve(data);
       });
