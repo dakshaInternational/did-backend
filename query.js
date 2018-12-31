@@ -296,7 +296,16 @@ createLoginTable(tableName){
     });
     return p;
   }
-
+ selectAttendance(tableName,tableName2, value1,value2){
+    let p = new Promise( (resolve, reject)=>{
+      let sql = `SELECT * FROM ${tableName},${tableName2} WHERE ${tableName}.class = '${value1}' AND ${tableName}.date = '${value2}' AND ${tableName}.class = ${tableName2}.class AND ${tableName}.roll_number=${tableName2}.roll_number `
+      this.db.all(sql,(err,data)=>{
+        if(err) reject(err);
+        resolve(data);
+      });
+    });
+    return p;
+  }
   createTrigger(triggerName,action){
     let p = new Promise((resolve, reject)=>{
     this.db.run(`CREATE TRIGGER IF NOT EXISTS ${triggerName} AFTER ${action} ON balances FOR EACH ROW
