@@ -25,12 +25,25 @@ class Query {
          gender       TEXT   NOT NULL,
          dob          TEXT   NOT NULL,
          address      TEXT   NOT NULL,
-         contact_number      INTEGER NOT NULL,
+         contact_number1      INTEGER NOT NULL,
          email        TEXT,
          status       INTEGER,
          image BLOB ,
          enrollment_number TEXT,
-         roll_number INTEGER NOT NULL )`
+         roll_number INTEGER NOT NULL,
+         category TEXT,
+         adhaar_no TEXT,
+         religion TEXT,
+         handicapped TEXT,
+         father_qualification TEXT,
+         father_occupation TEXT,
+         mother_qualification TEXT,
+         mother_occupation TEXT,
+         contact_number2 INTEGER,
+         annual_income INTEGER NOT NULL,
+         miniority TEXT NOT NULL,
+         only_child TEXT,
+          )`
          , [], (err, data)=>{
          if(err) reject(err);
          resolve(data);
