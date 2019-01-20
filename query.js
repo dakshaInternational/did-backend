@@ -25,7 +25,7 @@ class Query {
          gender       TEXT   NOT NULL,
          dob          TEXT   NOT NULL,
          address      TEXT   NOT NULL,
-         contact_number1      INTEGER NOT NULL,
+         contact_number     INTEGER NOT NULL,
          email        TEXT,
          status       INTEGER,
          image BLOB ,
@@ -42,7 +42,7 @@ class Query {
          contact_number2 INTEGER,
          annual_income INTEGER NOT NULL,
          miniority TEXT NOT NULL,
-         only_child TEXT,
+         only_child TEXT
           )`
          , [], (err, data)=>{
          if(err) reject(err);
