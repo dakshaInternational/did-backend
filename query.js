@@ -25,12 +25,25 @@ class Query {
          gender       TEXT   NOT NULL,
          dob          TEXT   NOT NULL,
          address      TEXT   NOT NULL,
-         contact_number      INTEGER NOT NULL,
+         contact_number     INTEGER NOT NULL,
          email        TEXT,
          status       INTEGER,
          image BLOB ,
          enrollment_number TEXT,
-         roll_number INTEGER NOT NULL )`
+         roll_number INTEGER NOT NULL,
+         category TEXT,
+         adhaar_no TEXT,
+         religion TEXT,
+         handicapped TEXT,
+         father_qualification TEXT,
+         father_occupation TEXT,
+         mother_qualification TEXT,
+         mother_occupation TEXT,
+         contact_number2 INTEGER,
+         annual_income INTEGER NOT NULL,
+         miniority TEXT NOT NULL,
+         only_child TEXT
+          )`
          , [], (err, data)=>{
          if(err) reject(err);
          resolve(data);
@@ -43,13 +56,29 @@ class Query {
     let p = new Promise((resolve, reject)=>{
       this.db.run(`CREATE TABLE IF NOT EXISTS ${tableName}(
          id INTEGER PRIMARY KEY AUTOINCREMENT,
+         session TEXT NOT NULL,
          student_id     INT  NOT NULL,
          class_id       INT  NOT NULL,
          admission_fee  INTEGER,
-         exam_fee       INTEGER,
+         pre_balance    INTEGER,
+         form_charges    INTEGER,
+         dearness_fee    INTEGER,
+         devlop_fee    INTEGER,
+         electric_fee    INTEGER,
+         library_fee    INTEGER,
+         lab_fee    INTEGER,
+         music_fee    INTEGER,
+         annual_function_fee    INTEGER,
+         exam_fee    INTEGER,
          tution_fee     INTEGER,
-         other_fee      INTEGER,
-         date           TEXT NOT NULL
+         late_fee    INTEGER,
+         activity_fee    INTEGER,
+         total_amount    INTEGER,
+         amount_deposite    INTEGER,
+         balance_amount    INTEGER,
+         remark TEXT,
+         received_by TEXT,
+         date  TEXT NOT NULL
          )`
          , [], (err, data)=>{
          if(err) reject(err);
