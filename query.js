@@ -41,7 +41,7 @@ class Query {
          mother_occupation TEXT,
          contact_number2 INTEGER,
          annual_income INTEGER NOT NULL,
-         miniority TEXT NOT NULL,
+         miniority TEXT ,
          only_child TEXT
           )`
          , [], (err, data)=>{
