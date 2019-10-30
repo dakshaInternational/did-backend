@@ -8,7 +8,7 @@ To build the front end of the DID app, we've built this server and an API to int
 
 Getting the server running on your local machine takes only a few steps:
 
-1. clone the project - `git clone https://github.com:dakshaInternational/did-backend.git`
+1. clone the project - `git clone https://github.com:thepresidents-in/tpd-backend.git`
 2. install its dependencies - `npm install`
 3. start the server - `node server.js`
 
