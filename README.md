@@ -1,8 +1,8 @@
 # Server for Contacts Project
 
-This is a backend server for the DID app project. This project is part of DID core projects.
+This is a backend server for the TPD app project. This project is part of TPD core projects.
 
-To build the front end of the DID app, we've built this server and an API to interact with it.
+To build the front end of the TPD app, we've built this server and an API to interact with it.
 
 ## Getting Set Up
 
